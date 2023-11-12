@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import logo from "../images/BasicBearSquare.png";
 
+import { Pages } from '../AppRoutes';
+
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
 
@@ -29,6 +31,27 @@ export class NavMenu extends Component {
   }
 
   render() {
+
+    var linkz = { ss: [], pr: [] };
+    Pages.forEach((item) => {
+      if (item.path[0] === "self-study")
+        return linkz.ss.push(item);
+      if (item.path[0] === "personal-reference")
+        linkz.pr.push(item);
+    },);
+
+    function listFactory(array) {
+      return array.map((item) => {
+        return (
+          <DropdownItem tag={Link} key={item.id}
+            to={item.path.reduce((a, n) => { return `${a}/${n}` }, "")}
+          >
+            {item.title}
+          </DropdownItem>
+        );
+      })
+    }
+
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
@@ -47,15 +70,26 @@ export class NavMenu extends Component {
                 <DropdownToggle nav caret>
                   Self Study
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem tag={Link} to="/self-study-fccReact">freeCodeCamp - React Course</DropdownItem>
+                <DropdownMenu end>
+                  {listFactory(linkz.ss)}
                 </DropdownMenu>
               </UncontrolledDropdown>
+
+
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  References
+                </DropdownToggle>
+                <DropdownMenu end>
+                  {listFactory(linkz.pr)}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/personal-reference">Personal Reference</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/curriculum-vitae">CV</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/curriculum-vitae">Curriculum Vitae</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/new-entry">New Entry</NavLink>
               </NavItem>
 
             </ul>

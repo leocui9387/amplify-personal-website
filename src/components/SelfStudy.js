@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import {
     UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody,
     Row, Col,List
@@ -7,12 +7,23 @@ import {
 import { BusinessCard, StarShips, ExampleForm } from './self_study/ReactBeginner';
 import { YouTube } from './YouTube';
 
-export const Pages = {
-    fCC_react: 1
+export class FCCReactRouter extends Component {
+    static baseURL = "https://www.youtube.com/watch?v=bMknfKXIFA8";
+    render() {
+        return (<div>
+            <YouTube.YoutubeButton
+                link={FCCReactRouter.baseURL}
+                text="Free Code Camp - React Router 6 Course"
+                time1={0}
+                modz={{ "size": "lg" }} />
+            <UncontrolledAccordion stayOpen defaultOpen={[0]}>
+
+            </UncontrolledAccordion>
+        </div>);
+    }
 }
 
-
-class FCCReact extends Component {
+export class FCCReact extends Component {
     static baseURL = "https://www.youtube.com/watch?v=bMknfKXIFA8";
 
     PersonalNotes() {
@@ -145,14 +156,3 @@ class FCCReact extends Component {
     }
 }
 
-
-export function SelfStudy (params){
-    switch (params.page) {
-        case Pages.fCC_react:
-            return (<div><FCCReact /></div>);
-            
-        default:
-            return (<div>:-(</div>);
-
-    }
-}

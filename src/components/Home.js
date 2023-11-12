@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {
     Card, CardBody, CardHeader, CardColumns,
     Row, Col
-
 } from 'reactstrap';
 
 import ReactMarkdown from 'react-markdown'
 
 import chu from "../images/chris_chu.gif";
+
 export class Home extends Component {
     static displayName = Home.name;
 
@@ -15,19 +15,19 @@ export class Home extends Component {
         function LogCard(props) {
 
             var body;
-            if (props.txt_fmt === "MD") {
-                body = <ReactMarkdown children={props.txt_val} />;
+            if (props.TEXT_FORMAT === "MD") {
+                body = <ReactMarkdown children={props.TEXT_VALUE} />;
             } else {
-                body = props.txt_val;
+                body = props.TEXT_VALUE;
             }
 
             return (
-                <Card style={{ padding: "0.5em", margin: "0.5em 0 0.5em 0" }} outline key={props.id}>
+                <Card style={{ padding: "0.5em", margin: "0.5em 0 0.5em 0" }} outline key={parseInt(props.ID)} >
                     <CardHeader>
                         <Row>
-                            <Col><b style={{ fontSize: "1.5em" }}>{props.txt_title}</b>
+                            <Col><b style={{ fontSize: "1.5em" }}>{props.TEXT_TITLE}</b>
                             </Col>
-                            <Col style={{ textAlign: "right" }}><small>{(new Date(props.date)).toDateString()}</small>
+                            <Col style={{ textAlign: "right" }}><small>{(new Date(props.ENTRY_DATE)).toDateString()}</small>
                             </Col>
                         </Row>
                     </CardHeader>
@@ -47,15 +47,21 @@ export class Home extends Component {
                 txt_val: (<div>Loading<img alt="" src={chu} /></div>)
             };
 
-
-            console.log(mdText);
+            React.useEffect(() => {
+                fetch("https://basic-bear-engineering.s3.amazonaws.com/MAIN.json")
+                    .then(f => f.text()).then(t => setText(t))
+                    .catch(msg => {
+                        console.log("CALL to MainJournal Failed.");
+                        console.log(msg);
+                    });
+            }, []);
 
             if (mdText.length === 0) { return LogCard(defaultCard); }
 
             var entry_objz = JSON.parse(mdText);
 
 
-            return (entry_objz.map(function (item) {
+            return (entry_objz.reverse().map(function (item) {
 
                 if (item.SECTION === "empty") {
 
