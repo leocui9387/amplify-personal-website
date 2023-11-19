@@ -11,17 +11,13 @@ function FromS3(params) {
     var arnURL = Pages.filter(obj => {
         return obj.id === params.id
     })
-    console.log("LEO");
-    console.log(params.id);
-    console.log(Pages);
-    console.log(arnURL);
 
     React.useEffect(() => {
         fetch(arnURL[0].arn)
             .then(f => f.text()).then(t => {
                 setEntry([{
                     ID: 0,
-                    TEXT_TITLE: "?",
+                    TEXT_TITLE: arnURL[0].title,
                     TEXT_FORMAT: arnURL[0].type,
                     ENTRY_DATE: new Date(1998, 11, 30),
                     TEXT_VALUE: t
@@ -31,7 +27,7 @@ function FromS3(params) {
                 console.log("CALL to MainJournal Failed.");
                 console.log(msg);
             });
-    }, []);
+    }, [params]);
 
     return entry;
 }
@@ -62,7 +58,7 @@ export default function SinglePage(params) {
         entryData = FromJS(params);
     }
 
-    console.log(entryData);
+
 
     if (entryData.TEXT_FORMAT === "MD") {
         return (<ReactMarkdown children={entryData.TEXT_VALUE} />);

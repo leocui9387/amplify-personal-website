@@ -12,9 +12,7 @@ export class CurriculumVitae extends Component {
 
             React.useEffect(() => {
                 fetch("https://basic-bear-engineering.s3.amazonaws.com/cv.md").then(f => f.text()).then(t => setText(t));
-
             }, []);
-
 
             return (<ReactMarkdown children={mdText} />);
         }
