@@ -4,7 +4,6 @@ import Markdown from "marked-react";
 */
 import ReactMarkdown from 'react-markdown'
 
-
 import { ErrorEntry } from './LogCard';
 import { FCCReact } from "../self_study/FCCReact";
 import { FCCReactRouter } from "../self_study/FCCReactRouter";

@@ -3,6 +3,7 @@ import { EntryForm } from "./components/EntryForm";
 import { Home } from "./components/Home";
 
 import SinglePage from "./components/basic/SinglePage"
+import AccordionPage from "./components/basic/AccordionPage"
 
 
 export const Pages = [
@@ -11,12 +12,14 @@ export const Pages = [
         , path: ["self-study", "fcc_react"]
         , title: "React"
         , source: "JS"
+        , base: SinglePage
     },
     {
         id: -2
         , path: ["self-study", "fcc_react_router"]
         , title: "React Router"
         , source: "JS"
+        , base: SinglePage
     },
     {
         id: -3
@@ -25,14 +28,16 @@ export const Pages = [
         , arn: "https://basic-bear-engineering.s3.amazonaws.com/self-study/AWS-SAP-C02.md"
         , source: "S3"
         , type: "MD"
+        , base: SinglePage
     },
     {
         id: -4
         , path: ["self-study", "aws-saa-c03"]
         , title: "AWS Solutions Architect - Associate"
-        , arn: "https://basic-bear-engineering.s3.amazonaws.com/self-study/AWS-SAA-C03.md"
+        , arn: "https://basic-bear-engineering.s3.amazonaws.com/self-study/AWS-SAA-C03.json"
         , source: "S3"
         , type: "MD"
+        , base: AccordionPage
     },
     {
         id: 5,
@@ -41,6 +46,7 @@ export const Pages = [
         title: "Asynchronous VBA",
         type: "MD"
         , source: "S3"
+        , base: SinglePage
     },
     {
         id: 8,
@@ -49,6 +55,7 @@ export const Pages = [
         title: "Data Science Final",
         type: "HTML"
         , source: "S3"
+        , base: SinglePage
     }
 ];
 
@@ -75,7 +82,7 @@ function RouteFactory() {
         routez.push(
             {
                 path: item.path.reduce(aggURL, ""),
-                element: <SinglePage id={item.id} source={item.source} />
+                element: <item.base id={item.id} source={item.source} />
             }
 
         );
