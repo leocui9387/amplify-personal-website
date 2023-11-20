@@ -1,5 +1,9 @@
 import React from 'react';
+/*
 import ReactMarkdown from 'react-markdown'
+*/
+
+import Markdown from "marked-react";
 
 import { ErrorEntry } from './LogCard';
 
@@ -61,7 +65,7 @@ export default function SinglePage(params) {
     }
 
     if (entryData.TEXT_FORMAT === "MD") {
-        return (<ReactMarkdown children={entryData.TEXT_VALUE} />);
+        return (<Markdown children={entryData.TEXT_VALUE} />);
     }
     else if (entryData.TEXT_FORMAT === "HTML") {
         return (<div dangerouslySetInnerHTML={{ __html: entryData.TEXT_VALUE }} />);
