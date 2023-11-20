@@ -1,12 +1,11 @@
 import React from 'react';
 /*
-import ReactMarkdown from 'react-markdown'
-*/
-
 import Markdown from "marked-react";
+*/
+import ReactMarkdown from 'react-markdown'
+
 
 import { ErrorEntry } from './LogCard';
-
 import { FCCReact } from "../self_study/FCCReact";
 import { FCCReactRouter } from "../self_study/FCCReactRouter";
 
@@ -65,7 +64,7 @@ export default function SinglePage(params) {
     }
 
     if (entryData.TEXT_FORMAT === "MD") {
-        return (<Markdown children={entryData.TEXT_VALUE} />);
+        return (<ReactMarkdown children={entryData.TEXT_VALUE} />);
     }
     else if (entryData.TEXT_FORMAT === "HTML") {
         return (<div dangerouslySetInnerHTML={{ __html: entryData.TEXT_VALUE }} />);
