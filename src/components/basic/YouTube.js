@@ -1,5 +1,4 @@
-﻿import { Button} from "reactstrap";
-import youtube_icon from "../images/youtube.png";
+﻿import { Button } from "reactstrap";
 
 export class YouTube {
     static gotoYT(link, timestamp) {
@@ -11,13 +10,13 @@ export class YouTube {
             window.open(link);
         }
     }
-    static YoutubeButton({ link, text, time1, modz  }) {
+    static YoutubeButton({ link, text, time1, modz }) {
 
         return (<p>
             <Button onClick={() => YouTube.gotoYT(link, time1)} color="danger" outline block {...modz} >
-                <img src={youtube_icon} class="icon" alt="" />
+                <img src={"https://basic-bear-engineering.s3.amazonaws.com/images/base-site/youtube.png"} class="icon" alt="" />
                 &emsp; {text}
             </Button></p>);
     }
-    
+
 }

@@ -6,7 +6,8 @@ import {
 
 } from 'reactstrap';
 
-import chu from "../images/chris_chu.gif";
+
+const chu = "https://basic-bear-engineering.s3.amazonaws.com/images/base-site/chris_chu.gif";
 
 export const ErrorEntry = {
     ID: -1,

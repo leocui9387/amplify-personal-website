@@ -8,7 +8,6 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import logo from "../images/BasicBearSquare.png";
 
 import { Pages } from '../AppRoutes';
 
@@ -56,7 +55,7 @@ export class NavMenu extends Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
           <NavbarBrand tag={Link} to="/">
-            <img alt="" src={logo} style={{ height: "1.5em", borderRadius: ".3em" }} />
+            <img alt="" src={"https://basic-bear-engineering.s3.amazonaws.com/images/base-site/BasicBearSquare.png"} style={{ height: "1.5em", borderRadius: ".3em" }} />
             &ensp;Basic Bear Engineering
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />

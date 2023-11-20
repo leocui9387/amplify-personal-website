@@ -2,8 +2,11 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown'
 
 import { ErrorEntry } from './LogCard';
-import { FCCReact, FCCReactRouter } from "./SelfStudy"
-import { Pages } from '../AppRoutes';
+
+import { FCCReact } from "../self_study/FCCReact";
+import { FCCReactRouter } from "../self_study/FCCReactRouter";
+
+import { Pages } from '../../AppRoutes';
 
 function FromS3(params) {
 
@@ -24,7 +27,7 @@ function FromS3(params) {
                 }])
             })
             .catch(msg => {
-                console.log("CALL to MainJournal Failed.");
+                console.log("CALL to S3 Failed.");
                 console.log(msg);
             });
     }, [params]);
@@ -36,12 +39,11 @@ function FromJS(params) {
 
     switch (params.id) {
         case -1:
-
             return {
                 TEXT_VALUE: <FCCReact />
             };
         case -2:
-            return { TEXT_VALUE: < FCCReactRouter /> };
+            return { TEXT_VALUE: <FCCReactRouter /> };
 
         default:
             return "Default Failed";
@@ -52,22 +54,18 @@ function FromJS(params) {
 export default function SinglePage(params) {
     var entryData;
 
-    if (params.id > 0) {
+    if (params.source == "S3") {
         entryData = FromS3(params)[0];
-    } else {
+    } else if (params.source == "JS") {
         entryData = FromJS(params);
     }
-
-
 
     if (entryData.TEXT_FORMAT === "MD") {
         return (<ReactMarkdown children={entryData.TEXT_VALUE} />);
     }
     else if (entryData.TEXT_FORMAT === "HTML") {
         return (<div dangerouslySetInnerHTML={{ __html: entryData.TEXT_VALUE }} />);
-
     } else {
-
         return entryData.TEXT_VALUE;
     }
 }

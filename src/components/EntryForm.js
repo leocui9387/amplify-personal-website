@@ -7,7 +7,7 @@ import {
 
     Form, FormGroup, Label, Input
 } from 'reactstrap';
-import LogCard from './LogCard';
+import LogCard from './basic/LogCard';
 export class EntryForm extends Component {
 
     render() {
@@ -23,7 +23,6 @@ export class EntryForm extends Component {
                 TEXT_FORMAT: data.format,
                 ENTRY_DATE: thingy.toDateString()
             };
-
 
             return (<Card style={cardStyle}>
                 <CardTitle>
