@@ -24,7 +24,6 @@ yarn-error.log*
 amplify-personal-website-prod_accessKeys.csv
 .vscode/*
 
-
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
