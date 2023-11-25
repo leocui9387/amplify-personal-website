@@ -4,7 +4,12 @@ import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './custom.css';
 
+import { Amplify } from 'aws-amplify';
+import config from './amplifyconfiguration.json';
+
+
 function App() {
+  Amplify.configure(config);
   return (
     <BrowserRouter>
       <Layout>
