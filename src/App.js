@@ -6,12 +6,13 @@ import './custom.css';
 
 import { Amplify } from 'aws-amplify';
 import config from './amplifyconfiguration.json';
-
+Amplify.configure(config);
 
 function App() {
-  Amplify.configure(config);
+  
   return (
     <BrowserRouter>
+
       <Layout>
         <Routes>
           {AppRoutes.map((route, index) => {
@@ -21,7 +22,6 @@ function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
-
   );
 }
 

@@ -1,17 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 import { Pages } from '../AppRoutes';
+// import { SignUp, signIn } from '@aws-amplify/auth';
+
+
+function LoginStateButton(){
+  // https://stackoverflow.com/questions/63519495/react-how-to-toggle-background-color-of-just-one-button
+  const [buttonState, setButtonState] = useState({color:"primary", text:"Sign In"});
+  const [loginState, setLoginState] = useState({username:null,authenticated:false,failed:false});
+
+  function handleButton(){
+    // setLoginState({username:"leo",authenticated:true,failed:false});  
+
+    if(loginState.authenticated){
+      setButtonState({color:"success", text:`Welcome : ${loginState.username}`});
+      setLoginState({username:"leo",authenticated:false,failed:true});  
+
+    }else{
+      if (loginState.failed){
+        setButtonState({color:"danger", text:"Log In Failed"});
+        setLoginState({username:"leo",authenticated:false,failed:false});  
+      }else{
+        setButtonState({color:"warning", text:"Sign In"});
+        setLoginState({username:"leo",authenticated:true,failed:false}); 
+      }
+    }
+  }
+
+  
+
+  return (<Button onClick={handleButton} color={buttonState.color}>{buttonState.text}</Button>);
+}
 
 export class NavMenu extends Component {
+  
   static displayName = NavMenu.name;
 
   constructor(props) {
@@ -51,6 +83,10 @@ export class NavMenu extends Component {
       })
     }
 
+
+    
+
+
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
@@ -58,7 +94,7 @@ export class NavMenu extends Component {
             <img alt="" src={"https://basic-bear-engineering.s3.amazonaws.com/images/base-site/BasicBearSquare.png"} style={{ height: "1.5em", borderRadius: ".3em" }} />
             &ensp;Basic Bear Engineering
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <LoginStateButton/>
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
@@ -90,7 +126,6 @@ export class NavMenu extends Component {
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/new-entry">New Entry</NavLink>
               </NavItem>
-
             </ul>
           </Collapse>
         </Navbar>
