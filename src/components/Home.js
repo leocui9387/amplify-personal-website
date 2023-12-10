@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown'
 
 import chu from "../images/chris_chu.gif";
 
+
 export class Home extends Component {
     static displayName = Home.name;
 
@@ -37,8 +38,6 @@ export class Home extends Component {
         }
 
         function GetMainJournalData() {
-            const [mdText, setText] = React.useState("[{\"id\":-1, \"SECTION\":\"empty\"}]");
-
             var defaultCard = {
                 id: -1,
                 txt_title: "Loading",
@@ -46,25 +45,32 @@ export class Home extends Component {
                 date: new Date(1998, 11, 30),
                 txt_val: (<div>Loading<img alt="" src={chu} /></div>)
             };
-
+            const [mdText, setText] = React.useState([]);
+            
             React.useEffect(() => {
+
                 fetch("https://basic-bear-engineering.s3.amazonaws.com/MAIN.json")
-                    .then(f => f.text()).then(t => setText(t))
+                    .then(f => f.text())
+                    .then(t =>{
+                        const entry_count = JSON.parse(t).id_count;
+                        const index_array = Array.from({length: entry_count}, (_, index) => index + 1)
+                        return Promise.all(index_array.map(x =>fetch(`https://basic-bear-engineering.s3.amazonaws.com/main/${x}.json`).then()))
+                    })
+                    .then(f2 => f2.map(x => x.text().then(y =>{
+                        setText(prevState => [...prevState, JSON.parse(y)])
+                    })))
                     .catch(msg => {
                         console.log("CALL to MainJournal Failed.");
                         console.log(msg);
                     });
-            }, []);
+                }, []);
 
             if (mdText.length === 0) { return LogCard(defaultCard); }
 
-            var entry_objz = JSON.parse(mdText);
-
-
-            return (entry_objz.reverse().map(function (item) {
+            
+            return (mdText.reverse().map(function (item) {
 
                 if (item.SECTION === "empty") {
-
                     return LogCard(defaultCard);
                 }
 
