@@ -57,7 +57,11 @@ export class Home extends Component {
                         return Promise.all(index_array.map(x =>fetch(`https://basic-bear-engineering.s3.amazonaws.com/main/${x}.json`).then()))
                     })
                     .then(f2 => f2.map(x => x.text().then(y =>{
-                        setText(prevState => [...prevState, JSON.parse(y)])
+                        setText(prevState => {
+                            const tmp = [...prevState, JSON.parse(y)]
+                            tmp.sort((a,b)=>(a.ID < b.ID ? 1 : -1))
+                            return tmp
+                        })
                     })))
                     .catch(msg => {
                         console.log("CALL to MainJournal Failed.");
@@ -68,7 +72,7 @@ export class Home extends Component {
             if (mdText.length === 0) { return LogCard(defaultCard); }
 
             
-            return (mdText.reverse().map(function (item) {
+            return (mdText.map(function (item) {
 
                 if (item.SECTION === "empty") {
                     return LogCard(defaultCard);
