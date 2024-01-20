@@ -8,7 +8,6 @@ import {
   Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './NavMenu.css';
 
 import { Pages } from '../AppRoutes';
 // import { SignUp, signIn } from '@aws-amplify/auth';
@@ -98,7 +97,7 @@ export class NavMenu extends Component {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} to="/">Home</NavLink>
               </NavItem>
 
               <UncontrolledDropdown nav inNavbar>
@@ -121,10 +120,10 @@ export class NavMenu extends Component {
               </UncontrolledDropdown>
 
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/curriculum-vitae">CV</NavLink>
+                <NavLink tag={Link} to="/curriculum-vitae">CV</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/new-entry">New Entry</NavLink>
+                <NavLink tag={Link} to="/new-entry">New Entry</NavLink>
               </NavItem>
             </ul>
           </Collapse>

@@ -3,7 +3,6 @@ import React from 'react';
 import {
     Card, CardBody, CardHeader,
     Row, Col
-
 } from 'reactstrap';
 
 
@@ -41,7 +40,7 @@ function LogCard(props) {
     var tmp_date = new Date(props.ENTRY_DATE);
 
     return (
-        <Card style={{ padding: "0.5em", margin: "0.5em 0 0.5em 0" }} outline key={props.ID}>
+        <Card style={{ padding: "0.5em", margin: "0.5em 0 0.5em 0"}} outline key={props.ID}>
             <CardHeader>
                 <Row>
                     <Col><b style={{ fontSize: "1.5em" }}>{props.TEXT_TITLE}</b>

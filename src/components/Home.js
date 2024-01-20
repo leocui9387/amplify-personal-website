@@ -5,9 +5,7 @@ import {
 } from 'reactstrap';
 
 import ReactMarkdown from 'react-markdown'
-
-import chu from "../images/chris_chu.gif";
-
+import {LoadingEntry} from "./basic/LogCard"
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -38,13 +36,7 @@ export class Home extends Component {
         }
 
         function GetMainJournalData() {
-            var defaultCard = {
-                id: -1,
-                txt_title: "Loading",
-                txt_fmt: "HTML",
-                date: new Date(1998, 11, 30),
-                txt_val: (<div>Loading<img alt="" src={chu} /></div>)
-            };
+
             const [mdText, setText] = React.useState([]);
             
             React.useEffect(() => {
@@ -58,6 +50,10 @@ export class Home extends Component {
                     })
                     .then(f2 => f2.map(x => x.text().then(y =>{
                         setText(prevState => {
+
+                            //console.log("previous state")
+                            //console.log(prevState)
+
                             const tmp = [...prevState, JSON.parse(y)]
                             tmp.sort((a,b)=>(a.ID < b.ID ? 1 : -1))
                             return tmp
@@ -69,31 +65,20 @@ export class Home extends Component {
                     });
                 }, []);
 
-            if (mdText.length === 0) { return LogCard(defaultCard); }
+            if (mdText.length === 0) { return LogCard(LoadingEntry); }
 
-            
             return (mdText.map(function (item) {
 
                 if (item.SECTION === "empty") {
-                    return LogCard(defaultCard);
+                    return LogCard(LoadingEntry);
                 }
 
                 return LogCard(item);
             }));
         }
 
-
-        /*
-        <LogCard props={Azure} />
-              <LogCard props={defaultCard} />
-              <LogCard props={FCC_React} />
-              
-        <TestFetch />
-        
-        */
-
         return (
-            <CardColumns >
+            <CardColumns>
                 <GetMainJournalData />
             </CardColumns>
         );
