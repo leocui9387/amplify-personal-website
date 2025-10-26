@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/main/api": {
+      "name": "/main/api",
+      "lambdaFunction": "personalSiteMainApi",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
